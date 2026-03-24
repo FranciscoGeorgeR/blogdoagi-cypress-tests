@@ -33,22 +33,21 @@
 
 ### Cenários Complementares (Regressão)
 
-| ID | Cenário | Prioridade |
-|----|---------|------------|
+| ID | Descrição | Prioridade |
+|----|-----------|------------|
 | CT-001 | Pesquisa com termo válido retorna resultados relevantes | 🔴 Crítico |
-| CT-002 | Pesquisa sem resultado exibe mensagem adequada | 🔴 Crítico |
-| CT-003 | A barra de pesquisa é acessível via ícone de lupa | 🟡 Normal |
-| CT-004 | Termo pesquisado é refletido na URL como parâmetro `?s=` | 🟡 Normal |
-| CT-005 | Pesquisa com caracteres especiais/acentuação funciona | 🟢 Minor |
-| CT-006 | Múltiplas pesquisas sequenciais funcionam corretamente | 🟡 Normal |
-| CT-007 | Resultado é clicável e leva ao artigo correspondente | 🔴 Crítico |
+| CT-002 | Pesquisa com termo inválido não exibe artigos | 🔴 Crítico |
+| CT-003 | Barra de pesquisa é acessível via ícone de lupa | 🟡 Normal |
+| CT-004 | Termo pesquisado é refletido na URL como `?s=` | 🟡 Normal |
+| CT-005 | Múltiplas pesquisas sequenciais funcionam corretamente | 🟡 Normal |
+| CT-006 | Primeiro resultado é clicável e abre o artigo correto | 🔴 Crítico |
 
-### Justificativa dos Cenários Principais
-
-**CT-S01 — Pesquisa com resultado válido** é o cenário mais crítico pois representa o **happy path** da funcionalidade principal. Se um usuário não consegue encontrar artigos ao pesquisar, o propósito central do blog (descoberta de conteúdo) está comprometido.
-
-**CT-S02 — Pesquisa sem resultado** é igualmente crítico pois garante a **qualidade da experiência** do usuário em um cenário comum (termos não encontrados). Uma página em branco ou sem feedback adequado causa confusão e abandono.
-
+### Por que esses dois cenários são os mais relevantes?
+ 
+**CT-S01 — Pesquisa com resultado:** representa o *happy path* da funcionalidade principal. Se um usuário não consegue encontrar artigos ao pesquisar, o propósito central do blog está comprometido.
+ 
+**CT-S02 — Pesquisa sem resultado:** garante que o sistema se comporta corretamente em um cenário comum — quando nenhum artigo é encontrado, nenhum resultado deve ser exibido, evitando confusão para o usuário.
+ 
 ---
 
 ## Pré-requisitos
@@ -57,7 +56,7 @@
 |------------|--------------|---------|
 | Node.js | 18.x | [nodejs.org](https://nodejs.org/) |
 | npm | 9.x | Incluído com Node.js |
-| Java (Allure) | 11+ | [adoptium.net](https://adoptium.net/) |
+| Java (Allure) | 11+ | [Java JDK 11](https://www.oracle.com/br/java/technologies/javase/jdk11-archive-downloads.html) |
 | Allure CLI | 2.x | Ver seção de instalação |
 
 > **Nota:** Java é necessário apenas para gerar e visualizar o relatório Allure localmente.
@@ -69,7 +68,7 @@
 ### 1. Clone o repositório
 
 ```bash
-git clone https://github.com/SEU_USUARIO/blogdoagi-cypress-tests.git
+git clone git@github.com:FranciscoGeorgeR/blogdoagi-cypress-tests.git
 cd blogdoagi-cypress-tests
 ```
 
@@ -163,7 +162,7 @@ npm run allure:serve
 
 ---
 
-## 📁 Estrutura do Projeto
+## Estrutura do Projeto
 
 ```
 blogdoagi-cypress-tests/
@@ -174,7 +173,7 @@ blogdoagi-cypress-tests/
 │
 ├── cypress/
 │   ├── e2e/
-│   │   ├── search.cy.js           # Suite completa (7 cenários)
+│   │   ├── search.cy.js           # Suite completa (6 cenários)
 │   │   └── search.smoke.cy.js     # Smoke tests (2 cenários críticos)
 │   │
 │   └── support/
@@ -206,7 +205,7 @@ blogdoagi-cypress-tests/
 
 ---
 
-## 🚀 Pipeline CI/CD
+## Pipeline CI/CD
 
 O projeto possui pipeline **GitHub Actions** configurado em `.github/workflows/cypress-tests.yml`.
 
@@ -225,12 +224,12 @@ O projeto possui pipeline **GitHub Actions** configurado em `.github/workflows/c
 ### Para ver o relatório online:
 Após a primeira execução, o relatório estará disponível em:
 ```
-https://SEU_USUARIO.github.io/blogdoagi-cypress-tests/
+🔗 **[Ver Relatório Allure](https://franciscogeorger.github.io/blogdoagi-cypress-tests/)**
 ```
 
 ---
 
-## 💡 Decisões Técnicas
+## Decisões Técnicas
 
 ### Por que Cypress?
 - Execução nativa no browser, sem WebDriver
@@ -249,22 +248,9 @@ https://SEU_USUARIO.github.io/blogdoagi-cypress-tests/
 - Reutilização de código (DRY)
 - Manutenção simplificada: mudança no seletor = 1 lugar para alterar
 
-### Seletores resilientes
-Os seletores foram construídos com múltiplos fallbacks porque o blog pode usar diferentes temas/estruturas. Priorizamos:
-1. Atributos semânticos (`aria-label`, `data-testid`)
-2. Atributos funcionais (`name="s"`, `type="search"`)
-3. Classes descritivas (evitando classes geradas dinamicamente)
-
 ---
 
-## 🤝 Contribuindo
+## Autor
 
-1. Fork o repositório
-2. Crie uma branch: `git checkout -b feature/novo-cenario`
-3. Commit: `git commit -m 'feat: adiciona CT-008'`
-4. Push: `git push origin feature/novo-cenario`
-5. Abra um Pull Request
-
----
-
-*Desenvolvido como parte do Teste Técnico QA – Web*
+Francisco George Rodrigues de Sousa<br>
+Analista de Qualidade / QA Automation
