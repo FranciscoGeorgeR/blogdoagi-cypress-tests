@@ -223,9 +223,9 @@ O projeto possui pipeline **GitHub Actions** configurado em `.github/workflows/c
 
 ### Para ver o relatório online:
 Após a primeira execução, o relatório estará disponível em:
-```
+
 🔗 **[Ver Relatório Allure](https://franciscogeorger.github.io/blogdoagi-cypress-tests/)**
-```
+
 
 ---
 
