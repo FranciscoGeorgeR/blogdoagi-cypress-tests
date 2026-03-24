@@ -1,4 +1,4 @@
 "DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
-"","2733","CT-S02 | [SMOKE] Pesquisa sem resultado exibe mensagem de feedback ao usuário","","2026-03-24","passed","2026-03-24","","Smoke Tests - Pesquisa Blog do Agi","",""
-"","3539","CT-S01 | [SMOKE] Pesquisa com termo válido exibe artigos relevantes","","2026-03-24","passed","2026-03-24","","Smoke Tests - Pesquisa Blog do Agi","",""
-"","6358","CT-006 | O primeiro resultado deve ser clicável e abrir o artigo correspondente","","2026-03-24","passed","2026-03-24","","Pesquisa de Artigos - Blog do Agi","",""
+"","5529","CT-006 | O primeiro resultado deve ser clicável e abrir o artigo correspondente","","2026-03-24","passed","2026-03-24","","Pesquisa de Artigos - Blog do Agi","",""
+"","1444","CT-S01 | [SMOKE] Pesquisa com termo válido exibe artigos relevantes","","2026-03-24","passed","2026-03-24","","Smoke Tests - Pesquisa Blog do Agi","",""
+"","819","CT-S02 | [SMOKE] Pesquisa sem resultado exibe mensagem de feedback ao usuário","","2026-03-24","passed","2026-03-24","","Smoke Tests - Pesquisa Blog do Agi","",""
