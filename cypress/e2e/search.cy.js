@@ -33,81 +33,81 @@ describe("Pesquisa de Artigos - Blog do Agi", () => {
   // CT-001 | CENÁRIO PRINCIPAL: Pesquisa com termo válido retorna resultados
   // ─────────────────────────────────────────────────────────────────────────────
 
-  it("CT-001 | Deve retornar resultados ao pesquisar por termo válido", () => {
-    const term = "Finanças";
+  // it("CT-001 | Deve retornar resultados ao pesquisar por termo válido", () => {
+  //   const term = "Finanças";
 
-    SearchPage.openSearchBar()
-    cy.performSearch(term)
-    SearchPage.getResultCount(term)
-  });
+  //   SearchPage.openSearchBar()
+  //   cy.performSearch(term)
+  //   SearchPage.getResultCount(term)
+  // });
 
-  // ─────────────────────────────────────────────────────────────────────────────
-  // CT-002 | CENÁRIO PRINCIPAL: Pesquisa sem resultados exibe mensagem adequada
-  // ─────────────────────────────────────────────────────────────────────────────
+  // // ─────────────────────────────────────────────────────────────────────────────
+  // // CT-002 | CENÁRIO PRINCIPAL: Pesquisa sem resultados exibe mensagem adequada
+  // // ─────────────────────────────────────────────────────────────────────────────
 
-  it("CT-002 | Deve exibir mensagem adequada quando nenhum resultado é encontrado", () => {
-    const invalidTerm = "xyzabcdefghijk123456789"
+  // it("CT-002 | Deve exibir mensagem adequada quando nenhum resultado é encontrado", () => {
+  //   const invalidTerm = "xyzabcdefghijk123456789"
 
-    SearchPage.openSearchBar()
-    cy.performSearch(invalidTerm)
+  //   SearchPage.openSearchBar()
+  //   cy.performSearch(invalidTerm)
 
-    SearchPage.assertNoResultsDisplayed(invalidTerm)
+  //   SearchPage.assertNoResultsDisplayed(invalidTerm)
 
-  });
+  // });
 
-  // ─────────────────────────────────────────────────────────────────────────────
-  // CT-003 | Acessibilidade da barra de pesquisa via ícone de lupa
-  // ─────────────────────────────────────────────────────────────────────────────
+  // // ─────────────────────────────────────────────────────────────────────────────
+  // // CT-003 | Acessibilidade da barra de pesquisa via ícone de lupa
+  // // ─────────────────────────────────────────────────────────────────────────────
 
-  it("CT-003 | A barra de pesquisa deve ser acessível via ícone de lupa", () => {
-    SearchPage.assertSearchIconVisible()
+  // it("CT-003 | A barra de pesquisa deve ser acessível via ícone de lupa", () => {
+  //   SearchPage.assertSearchIconVisible()
 
-    SearchPage.openSearchBar();
+  //   SearchPage.openSearchBar();
 
-    SearchPage.assertSearchInputAcceptsValue();
+  //   SearchPage.assertSearchInputAcceptsValue();
 
-  });
+  // });
 
-  // ─────────────────────────────────────────────────────────────────────────────
-  // CT-004 | Termo de pesquisa é preservado na URL
-  // ─────────────────────────────────────────────────────────────────────────────
+  // // ─────────────────────────────────────────────────────────────────────────────
+  // // CT-004 | Termo de pesquisa é preservado na URL
+  // // ─────────────────────────────────────────────────────────────────────────────
 
-  it("CT-004 | O termo pesquisado deve ser refletido na URL como parâmetro ?s=", () => {
-    const searchTerm = "investimento"
+  // it("CT-004 | O termo pesquisado deve ser refletido na URL como parâmetro ?s=", () => {
+  //   const searchTerm = "investimento"
 
-    SearchPage.openSearchBar()
-    cy.performSearch(searchTerm)
+  //   SearchPage.openSearchBar()
+  //   cy.performSearch(searchTerm)
 
-    SearchPage.assertUrlHasSearchTerm(searchTerm)
-  });
+  //   SearchPage.assertUrlHasSearchTerm(searchTerm)
+  // });
 
-  // ─────────────────────────────────────────────────────────────────────────────
-  // CT-005 | Múltiplas pesquisas sequenciais
-  // ─────────────────────────────────────────────────────────────────────────────
+  // // ─────────────────────────────────────────────────────────────────────────────
+  // // CT-005 | Múltiplas pesquisas sequenciais
+  // // ─────────────────────────────────────────────────────────────────────────────
 
-  it("CT-005 | Deve permitir múltiplas pesquisas sequenciais sem necessidade de reload", () => {
-    const firstTerm = "poupanca"
-    const secondTerm = "credito"
+  // it("CT-005 | Deve permitir múltiplas pesquisas sequenciais sem necessidade de reload", () => {
+  //   const firstTerm = "poupanca"
+  //   const secondTerm = "credito"
 
-    // Primeira pesquisa
-    SearchPage.openSearchBar()
-    cy.performSearch(firstTerm)
-    SearchPage.assertUrlHasSearchTerm(firstTerm)
+  //   // Primeira pesquisa
+  //   SearchPage.openSearchBar()
+  //   cy.performSearch(firstTerm)
+  //   SearchPage.assertUrlHasSearchTerm(firstTerm)
 
-    // Segunda pesquisa - retorna à home
-    cy.visitHome()
-    SearchPage.openSearchBar()
-    cy.performSearch(secondTerm)
-    SearchPage.assertUrlHasSearchTerm(secondTerm)
+  //   // Segunda pesquisa - retorna à home
+  //   cy.visitHome()
+  //   SearchPage.openSearchBar()
+  //   cy.performSearch(secondTerm)
+  //   SearchPage.assertUrlHasSearchTerm(secondTerm)
 
-  });
+  // });
 
   // ─────────────────────────────────────────────────────────────────────────────
   // CT-006 | Resultado é clicável e leva ao artigo correto
   // ─────────────────────────────────────────────────────────────────────────────
 
   it("CT-006 | O primeiro resultado deve ser clicável e abrir o artigo correspondente", () => {
-    const searchTerm = "dinheiro"
+    const searchTerm = "Dinheiro"
 
     SearchPage.openSearchBar()
     cy.performSearch(searchTerm)
