@@ -141,6 +141,13 @@ npm test
 
 ## Relatório Allure
 
+### Relatório de Resultados:
+O relatório completo com todos os resultados está disponível publicamente::
+
+🔗 **[Ver Relatório Allure](https://franciscogeorger.github.io/blogdoagi-cypress-tests/)**
+
+
+
 ### Gerar e abrir o relatório
 
 ```bash
@@ -220,12 +227,6 @@ O projeto possui pipeline **GitHub Actions** configurado em `.github/workflows/c
 2. 📊 Gera relatório Allure
 3. 📤 Publica artefatos (resultados, vídeos, screenshots)
 4. 🌐 Faz deploy do Allure Report no **GitHub Pages** (branch `main`)
-
-### Para ver o relatório online:
-Após a primeira execução, o relatório estará disponível em:
-
-🔗 **[Ver Relatório Allure](https://franciscogeorger.github.io/blogdoagi-cypress-tests/)**
-
 
 ---
 

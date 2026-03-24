@@ -2,9 +2,9 @@ name:  Cypress E2E Tests - Blog do Agi
 
 on:
   push:
-    branches: [main, master, develop]
+    branches: [main]
   pull_request:
-    branches: [main, master, develop]
+    branches: [main]
   schedule:
     - cron: "0 8 * * *"
   workflow_dispatch:
@@ -13,89 +13,72 @@ on:
         description: "Spec file to run (leave blank for all)"
         required: false
         default: ""
-      browser:
-        description: "Browser"
-        required: false
-        default: "chrome"
-        type: choice
-        options:
-          - chrome
-          - firefox
-          - electron
+
+permissions:
+  contents: write
 
 jobs:
-  # ─── Job: Cypress Tests ────────────────────────────────────────────────────
   cypress-tests:
-    name:  E2E Tests (${{ matrix.browser }})
+    name:  Run E2E Tests & Publish Allure Report
     runs-on: ubuntu-latest
 
-    strategy:
-      fail-fast: false
-      matrix:
-        browser: [chrome]
-
     steps:
-      - name: Checkout repository
+      - name:  Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name:  Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "18"
           cache: "npm"
 
-      - name: Install dependencies
+      - name:  Install dependencies
         run: npm ci
 
-      - name: Run Cypress Tests (${{ matrix.browser }})
+      - name:  Run Cypress Tests
         uses: cypress-io/github-action@v6
         with:
-          browser: ${{ matrix.browser }}
+          browser: chrome
           spec: ${{ github.event.inputs.spec || 'cypress/e2e/**/*.cy.js' }}
           config: video=true,screenshotOnRunFailure=true
+        continue-on-error: true
         env:
           CYPRESS_BASE_URL: https://blogdoagi.com.br
           CYPRESS_allure: true
           CYPRESS_allureResultsPath: allure-results
 
-      - name: Generate Allure Report
-        if: always()
+      - name:  Instalar Allure CLI
         run: |
-          npm run allure:generate
-        continue-on-error: true
+          curl -o allure.tgz -L https://github.com/allure-framework/allure2/releases/download/2.25.0/allure-2.25.0.tgz
+          tar -zxvf allure.tgz
+          sudo mv allure-2.25.0 /opt/allure
+          sudo ln -s /opt/allure/bin/allure /usr/local/bin/allure
+          allure --version
 
-      - name: Upload Allure Results
+      - name:  Gerar relatório Allure
+        run: allure generate allure-results --clean -o allure-report
+
+      - name:  Upload Videos
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: allure-results-${{ matrix.browser }}
-          path: allure-results/
-          retention-days: 30
-
-      - name: Upload Allure Report
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: allure-report-${{ matrix.browser }}
-          path: allure-report/
-          retention-days: 30
-
-      - name: Upload Videos
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: cypress-videos-${{ matrix.browser }}
+          name: cypress-videos
           path: cypress/videos/
           retention-days: 7
           if-no-files-found: ignore
 
-      - name: Upload Screenshots
+      - name:  Upload Screenshots
         if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: cypress-screenshots-${{ matrix.browser }}
+          name: cypress-screenshots
           path: cypress/screenshots/
           retention-days: 7
           if-no-files-found: ignore
 
- 
+      - name:  Publicar relatório no GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: allure-report

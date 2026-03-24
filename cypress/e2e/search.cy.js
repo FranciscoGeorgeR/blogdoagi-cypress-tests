@@ -51,7 +51,6 @@ describe("Pesquisa de Artigos - Blog do Agi", () => {
     cy.performSearch(invalidTerm)
 
     SearchPage.assertNoResultsDisplayed(invalidTerm)
-
   });
 
   // ─────────────────────────────────────────────────────────────────────────────
@@ -64,7 +63,6 @@ describe("Pesquisa de Artigos - Blog do Agi", () => {
     SearchPage.openSearchBar();
 
     SearchPage.assertSearchInputAcceptsValue();
-
   });
 
   // ─────────────────────────────────────────────────────────────────────────────
@@ -98,7 +96,6 @@ describe("Pesquisa de Artigos - Blog do Agi", () => {
     SearchPage.openSearchBar()
     cy.performSearch(secondTerm)
     SearchPage.assertUrlHasSearchTerm(secondTerm)
-
   });
 
   // ─────────────────────────────────────────────────────────────────────────────
@@ -115,6 +112,5 @@ describe("Pesquisa de Artigos - Blog do Agi", () => {
 
     SearchPage.clickFirstResult()
     SearchPage.assertArticlePageLoaded()
-
   });
 });
